@@ -11,12 +11,7 @@ const Products = ({ products, loading, error }) => {
 		if (loading) return [1, 2, 3, 4, 5].map((d) => <ProductCard loading={loading} key={d} />);
 
 		const array = products.map((item, i) => {
-			return <ProductCard 
-			{...item} 
-			loading={loading} 
-			key={i} 
-			isLast={i === products.length - 1}
-			/>;
+			return <ProductCard {...item} loading={loading} key={i} isLast={i === products.length - 1} />;
 		});
 
 		return array;

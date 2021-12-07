@@ -11,7 +11,7 @@ const Navbar = (props) => {
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static">
+			<AppBar position="static" style={{ backgroundColor: "#1b1b1b" }} >
 				<Toolbar>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 						Techover

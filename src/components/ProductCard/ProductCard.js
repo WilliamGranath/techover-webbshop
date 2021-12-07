@@ -4,7 +4,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import useStyles from './styles';
 
 
-const ProductCard = ({loading, title, price, image, id, description, category, raiting}) => {
+const ProductCard = ({loading, title, isLast, price, image, id, description, category, raiting}) => {
 	const classes = useStyles();
 	return (
 	<div className={classes.productCard}>
@@ -39,13 +39,18 @@ const ProductCard = ({loading, title, price, image, id, description, category, r
   
 		<div className={classes.buttons}>
 		  <IconButton aria-label="plus" onClick={() => {}}>
-			<AddIcon fontSize="large" className={classes.button}/>
+			<AddIcon fontSize="large" className={classes.buttonAdd}/>
 		  </IconButton>
 		  <IconButton aria-label="plus" onClick={() => {}}>
-			<RemoveIcon fontSize="large" className={classes.button}/>
+			<RemoveIcon fontSize="large" className={classes.buttonRemove}/>
 		  </IconButton>
 		</div>
 	  </div>
+		{!isLast && (
+			<div className={classes.divider}>
+				<Divider variant="middle" />
+			</div>
+		)}
 	</div>
 	)
   };

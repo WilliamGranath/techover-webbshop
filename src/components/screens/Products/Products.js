@@ -1,11 +1,13 @@
 import React from 'react';
-import { Typography, Container, Grid, Button } from '@mui/material';
+import { Typography, Container, Grid, IconButton } from '@mui/material';
 import useStyles from './styles';
 import { connect } from 'react-redux';
 import ProductCard from '../../ProductCard/ProductCard';
-import { incrementProduct, decrementProduct } from '../../../reduxStore/actions';
+import { incrementProduct, decrementProduct, resetCart } from '../../../reduxStore/actions';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { positions } from '@mui/system';
 
-const Products = ({ products, loading, error, onDecrement, onIncrement }) => {
+const Products = ({ products, loading, error, onDecrement, onIncrement, resetCart }) => {
 	const classes = useStyles();
 
 	const renderProductCards = () => {
@@ -29,6 +31,9 @@ const Products = ({ products, loading, error, onDecrement, onIncrement }) => {
 
 	return (
 		<div id="Product__screen">
+			<IconButton onClick={() => resetCart()} aria-label="delete" size="large">
+				<DeleteIcon fontSize="inherit" />
+			</IconButton>
 			<Container maxWidth="md">
 				<div className="Products__view">
 					{/* Header */}
@@ -58,7 +63,8 @@ const mapState = (state) => {
 const mapDIspatchToProps = (dispatch) => {
 	return {
 		onIncrement: (data) => dispatch(incrementProduct(data)),
-		onDecrement: (data) => dispatch(decrementProduct(data))
+		onDecrement: (data) => dispatch(decrementProduct(data)),
+		resetCart: (data) => dispatch(resetCart(data))
 	};
 };
 

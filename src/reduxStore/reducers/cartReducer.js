@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-	switch (action.types) {
+	switch (action.type) {
 		case actionTypes.RESET_CART:
 			return {
 				totalPrice: 0,
@@ -16,16 +16,23 @@ const reducer = (state = initialState, action) => {
 				productPrice: 0,
 				orders: []
 			};
+
 		case actionTypes.INCREMENT_PRODUCT:
 			const newArray = incrementProducts(state.orders, action);
+
 			return {
 				...state,
 				orders: newArray
 			};
+
 		// case actionTypes.DECREMENT_PRODUCT:
-		// 	return {};
+
+		// return {}
+
 		// case actionTypes.CALCULATE_TOTAL_CART_AMOUNT:
-		// 	return {};
+
+		// return {};
+
 		default:
 			return state;
 	}

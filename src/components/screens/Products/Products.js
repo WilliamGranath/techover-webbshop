@@ -3,15 +3,25 @@ import { Typography, Container, Grid, Button } from '@mui/material';
 import useStyles from './styles';
 import { connect } from 'react-redux';
 import ProductCard from '../../ProductCard/ProductCard';
+import { incrementProduct, decrementProduct } from '../../../reduxStore/actions';
 
-const Products = ({ products, loading, error }) => {
+const Products = ({ products, loading, error, onDecrement, onIncrement }) => {
 	const classes = useStyles();
 
 	const renderProductCards = () => {
 		if (loading) return [1, 2, 3, 4, 5].map((d) => <ProductCard loading={loading} key={d} />);
 
 		const array = products.map((item, i) => {
-			return <ProductCard {...item} loading={loading} key={i} isLast={i === products.length - 1} />;
+			return (
+				<ProductCard
+					{...item}
+					loading={loading}
+					key={i}
+					onIncrement={() => onIncrement(item)}
+					onDecrement={() => onDecrement(item)}
+					isLast={i === products.length - 1}
+				/>
+			);
 		});
 
 		return array;
@@ -31,6 +41,9 @@ const Products = ({ products, loading, error }) => {
 						</Grid>
 					</Grid>
 					{/* END Items */}
+					{/* <div className={classes.buttonContainer}>
+						<Button variant="contained">Köp</Button>
+					</div> */}
 				</div>
 			</Container>
 		</div>
@@ -42,4 +55,11 @@ const mapState = (state) => {
 	return { products: items, loading, error };
 };
 
-export default connect(mapState)(Products);
+const mapDIspatchToProps = (dispatch) => {
+	return {
+		onIncrement: (data) => dispatch(incrementProduct(data)),
+		onDecrement: (data) => dispatch(decrementProduct(data))
+	};
+};
+
+export default connect(mapState, mapDIspatchToProps)(Products);

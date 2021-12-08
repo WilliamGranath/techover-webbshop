@@ -3,7 +3,20 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import useStyles from './styles';
 
-const ProductCard = ({ loading, title, isLast, price, image, id, description, category, raiting }) => {
+const ProductCard = ({
+	loading,
+	title,
+	isLast,
+	disabled,
+	onDecrement,
+	onIncrement,
+	price,
+	image,
+	id,
+	description,
+	category,
+	rating
+}) => {
 	const classes = useStyles();
 	return (
 		<div className={classes.productCard}>
@@ -34,10 +47,10 @@ const ProductCard = ({ loading, title, isLast, price, image, id, description, ca
 				</div>
 
 				<div className={classes.buttons}>
-					<IconButton aria-label="plus" onClick={() => {}}>
+					<IconButton aria-label="plus" onClick={onIncrement}>
 						<AddIcon fontSize="large" className={classes.buttonAdd} />
 					</IconButton>
-					<IconButton aria-label="plus" onClick={() => {}}>
+					<IconButton aria-label="plus" onClick={onDecrement}>
 						<RemoveIcon fontSize="large" className={classes.buttonRemove} />
 					</IconButton>
 				</div>

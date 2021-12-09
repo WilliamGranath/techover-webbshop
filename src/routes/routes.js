@@ -17,6 +17,11 @@ export const ROUTES = [
 		component: Products
 	},
 	{
+		path: '/products/:category',
+		exact: true,
+		component: Products
+	},
+	{
 		path: '*',
 		exact: true,
 		component: NoMatch

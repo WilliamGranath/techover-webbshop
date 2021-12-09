@@ -5,15 +5,19 @@ import { connect } from 'react-redux';
 import ProductCard from '../../ProductCard/ProductCard';
 import { incrementProduct, decrementProduct, resetCart } from '../../../reduxStore/actions';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { positions } from '@mui/system';
+import { useParams } from 'react-router-dom';
+import SideBar from '../../Sidebar/SideBar';
 
 const Products = ({ products, loading, error, onDecrement, onIncrement, resetCart }) => {
 	const classes = useStyles();
+	console.log(products);
+	const { category } = useParams();
 
+	console.log(category);
 	const renderProductCards = () => {
 		if (loading) return [1, 2, 3, 4, 5].map((d) => <ProductCard loading={loading} key={d} />);
 
-		const array = products.map((item, i) => {
+		let array = products.map((item, i) => {
 			return (
 				<ProductCard
 					{...item}
@@ -26,14 +30,30 @@ const Products = ({ products, loading, error, onDecrement, onIncrement, resetCar
 			);
 		});
 
+		if (category) {
+			array = array.filter((item) => {
+				console.log(item.props.category);
+				const s = item.props.category.replace(/[^A-Z0-9]/gi, '');
+
+				return s === category;
+			});
+		}
+
 		return array;
 	};
 
 	return (
-		<div id="Product__screen">
-			<IconButton onClick={() => resetCart()} aria-label="delete" size="large">
+		<div id="Product__screen" className="productScreen">
+			<IconButton
+				positions="right"
+				className={classes.resetButton}
+				onClick={() => resetCart()}
+				aria-label="delete"
+				size="large"
+			>
 				<DeleteIcon fontSize="inherit" />
 			</IconButton>
+			<SideBar />
 			<Container maxWidth="md">
 				<div className="Products__view">
 					{/* Header */}

@@ -5,6 +5,14 @@ const useStyles = makeStyles((theme) =>
 		header: {
 			backgroundColor: 'red',
 			fontSize: '56px'
+		},
+		productScreen: {
+			position: 'relative'
+		},
+		resetButton: {
+			position: 'fixed',
+			top: '15vh',
+			right: '24vw'
 		}
 	})
 );

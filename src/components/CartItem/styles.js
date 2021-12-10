@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) =>
 		prodName: {
 			color: '#4e6f7d',
 			fontWeight: 500,
-			marginBottom: 10,
 			height: 40,
 			fontSize: '18px'
 		},

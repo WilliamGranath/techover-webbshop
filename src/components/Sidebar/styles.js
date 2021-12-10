@@ -5,15 +5,18 @@ const useStyles = makeStyles((theme) =>
 		catButtonbox: {
 			display: 'flex',
 			flexDirection: 'column',
-			height: '100%',
-			marginBottom: 10
+			position: 'fixed',
+			height: '10vh',
+			marginBottom: 10,
+			marginTop: 10
 		},
 		catButton: {
 			height: '100%',
 			width: '10vw',
 			backgroundColor: '#1b1b1b',
 			borderRadius: '20px',
-			marginBottom: 10
+			marginBottom: 5,
+			marginLeft: 10
 		}
 	})
 );

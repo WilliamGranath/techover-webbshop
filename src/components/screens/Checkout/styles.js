@@ -3,7 +3,9 @@ import { createStyles, makeStyles } from '@mui/styles';
 const useStyles = makeStyles((theme) =>
 	createStyles({
 		screen: {
-			paddingBottom: 50
+			marginTop: 10,
+			paddingBottom: 50,
+			float: 'left'
 		},
 		productHeader: {
 			display: 'flex',

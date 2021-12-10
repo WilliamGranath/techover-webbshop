@@ -5,21 +5,32 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import StyledBadge from '@mui/material/Badge';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-const Navbar = (props) => {
+const Navbar = ({ cartProducts }) => {
 	const history = useHistory();
+
+	const getNumberOfCartItems = () => {
+		return cartProducts.reduce((p, c) => (p += c.quantity), 0);
+	};
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static" style={{ backgroundColor: "#1b1b1b" }} >
+			<AppBar position="fixed" style={{ backgroundColor: '#1b1b1b', marginBottom: '10px' }}>
 				<Toolbar>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }} style={{ color: '#4e6f7d' }}>
 						Techover
 					</Typography>
-					<Button onClick={() => history.push('/checkout')} color="inherit">
-						Checkout
-					</Button>
-					<Button onClick={() => history.push('/')} color="inherit">
+
+					<IconButton aria-label="cart" onClick={() => history.push('/checkout')}>
+						<StyledBadge badgeContent={getNumberOfCartItems()} color="primary">
+							<ShoppingCartIcon style={{ color: '#4e6f7d' }} />
+						</StyledBadge>
+					</IconButton>
+					<Button onClick={() => history.push('/')} color="inherit" style={{ color: '#4e6f7d' }}>
 						Products
 					</Button>
 				</Toolbar>
@@ -28,4 +39,10 @@ const Navbar = (props) => {
 	);
 };
 
-export default Navbar;
+const mapState = (state) => {
+	return {
+		cartProducts: state.cart.orders
+	};
+};
+
+export default connect(mapState)(Navbar);

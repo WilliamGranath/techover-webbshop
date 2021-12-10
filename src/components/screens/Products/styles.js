@@ -2,17 +2,22 @@ import { createStyles, makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) =>
 	createStyles({
-		header: {
-			backgroundColor: 'red',
-			fontSize: '56px'
+		productsInView: {
+			marginTop: 70
 		},
 		productScreen: {
 			position: 'relative'
 		},
 		resetButton: {
 			position: 'fixed',
-			top: '15vh',
-			right: '24vw'
+			top: '94vh',
+			right: '16vw',
+			backgroundColor: '#1b1b1b',
+			'&:hover': {
+				backgroundColor: 'transparent'
+			},
+			color: '#4e6f7d',
+			padding: 5
 		}
 	})
 );

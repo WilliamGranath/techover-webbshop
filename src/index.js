@@ -8,6 +8,7 @@ import configureStore from './reduxStore/configureStore';
 import { ThemeProvider } from '@mui/material/styles';
 import { mainTheme } from './style/material-themes';
 
+
 const store = configureStore();
 
 ReactDOM.render(

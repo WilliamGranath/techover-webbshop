@@ -54,10 +54,10 @@ const Products = ({ products, loading, error, onDecrement, onIncrement, resetCar
 				<DeleteIcon fontSize="inherit" />
 			</IconButton>
 			<SideBar />
-			<Container maxWidth="md">
+			<Container className={classes.productsInView}maxWidth="md">
 				<div className="Products__view">
 					{/* Header */}
-					<Typography variant="h1">Välj Varor</Typography>
+					<Typography variant="h1">Shop Items</Typography>
 
 					{/* Items */}
 					<Grid container spacing={2}>

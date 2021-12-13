@@ -1,14 +1,22 @@
-import { Typography, Container, Grid, Divider } from '@mui/material';
+import { Typography, Container, Grid, Divider, Button } from '@mui/material';
 import useStyles from './styles';
 import { connect } from 'react-redux';
 import CartItem from '../../CartItem/CartItem';
-
-const Checkout = ({ cart }) => {
+import { resetCart } from '../../../reduxStore/actions/cartActions';
+const Checkout = ({ cart, resetCart }) => {
 	const classes = useStyles();
 
 	const renderCartItems = () => {
 		return cart.orders.map((item) => <CartItem {...item} />);
 	};
+	const cleanedCartItems = cart.orders.map((orderItem) => {
+		return {
+			id: orderItem.product.id,
+			quantity: orderItem.quantity
+		};
+	});
+
+	const stringifiedCartItems = JSON.stringify(cleanedCartItems);
 
 	return (
 		<div id="Checkout__screen" className={classes.screen}>
@@ -18,32 +26,46 @@ const Checkout = ({ cart }) => {
 						Checkout
 					</Typography>
 				</div>
-				<Grid container spacing={2} justify="center">
-					<Grid item xs={12}>
-						{renderCartItems()}
+				<div className={classes.checkout}>
+					<Grid container spacing={2} justify="center">
+						<Grid item xs={12}>
+							{renderCartItems()}
+						</Grid>
 					</Grid>
-				</Grid>
 
-				<Divider style={{ marginBottom: 20 }} />
-				<Grid container spacing={2} justify="center">
-					<Grid item xs={10}>
-						Subtotal:
+					<Divider style={{ marginBottom: 20 }} />
+					<Grid container spacing={2} justify="center">
+						<Grid item xs={10}>
+							Subtotal:
+						</Grid>
+						<Grid item xs={2} className={classes.subTotal}>
+							{cart.productPrice.toFixed(2)} kr
+						</Grid>
+						<Grid item xs={10}>
+							Shipping:
+						</Grid>
+						<Grid item xs={2} className={classes.subTotal}>
+							{cart.deliveryFee} kr
+						</Grid>
+						<Grid item xs={10} className={classes.boldText}>
+							Total:
+						</Grid>
+						<Grid item xs={2} className={classes.boldText}>
+							{cart.totalPrice.toFixed(2)} kr
+						</Grid>
 					</Grid>
-					<Grid item xs={2} className={classes.subTotal}>
-						{cart.productPrice} kr
-					</Grid>
-					<Grid item xs={10}>
-						Shipping:
-					</Grid>
-					<Grid item xs={2} className={classes.subTotal}>
-						{cart.deliveryFee} kr
-					</Grid>
-					<Grid item xs={10} className={classes.boldText}>
-						Total:
-					</Grid>
-					<Grid item xs={2} className={classes.boldText}>
-						{cart.totalPrice} kr
-					</Grid>
+				</div>
+				<Button onClick={() => resetCart()} variant="contained" className={classes.resetButton}>
+					Reset cart
+				</Button>
+				<Grid item xs={6}>
+					<iframe
+						title="KlarnaAPI"
+						src={'http://localhost:3001/checkout/BBB-123?cartItems=' + stringifiedCartItems}
+						frameBorder={'none'}
+						height="900px"
+						width="100%"
+					/>
 				</Grid>
 			</Container>
 		</div>
@@ -56,8 +78,10 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDIspatchToProps = (dispatch) => {
-	return {};
+const mapDispatchToProps = (dispatch) => {
+	return {
+		resetCart: () => dispatch(resetCart())
+	};
 };
 
-export default connect(mapStateToProps, mapDIspatchToProps)(Checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

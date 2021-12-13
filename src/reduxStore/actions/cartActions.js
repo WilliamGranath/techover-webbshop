@@ -10,7 +10,7 @@ export const calculateTotalCartAmount = () => {
 		const { orders } = state.cart;
 		const totalPrice = orders.reduce((previousValue, currentValue) => {
 			const { product, quantity } = currentValue;
-			const price = parseInt(product.price);
+			const price = parseFloat(product.price).toFixed(2);
 			const sum = (previousValue += price * quantity);
 			return sum;
 		}, 0);
@@ -25,7 +25,6 @@ export const calculateTotalCartAmount = () => {
 		});
 	};
 };
-
 
 export const incrementProduct = (payload) => {
 	return (dispatch) => {

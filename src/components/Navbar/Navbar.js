@@ -19,7 +19,7 @@ const Navbar = ({ cartProducts }) => {
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="fixed" style={{ backgroundColor: '#1b1b1b', marginBottom: '10px' }}>
+			<AppBar position="fixed" style={{ backgroundColor: '#1b1b1b' }}>
 				<Toolbar>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }} style={{ color: '#4e6f7d' }}>
 						Techover

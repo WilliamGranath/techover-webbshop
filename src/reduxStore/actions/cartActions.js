@@ -6,26 +6,35 @@ export const resetCart = (payload) => {
 
 export const calculateTotalCartAmount = () => {
 	return (dispatch, getState) => {
+		const DELIVERY_COST = 109;
 		const state = getState();
 		const { orders } = state.cart;
-		const totalPrice = orders.reduce((previousValue, currentValue) => {
-			const { product, quantity } = currentValue;
-			const price = parseInt(product.price);
-			const sum = (previousValue += price * quantity);
-			return sum;
-		}, 0);
-		const DELIVERY_COST = 39;
-		const deliveryFee = totalPrice > 500 ? 0 : DELIVERY_COST;
 
-		dispatch({
+		const reducer = (prev, curr) => {
+			const { product, quantity } = curr;
+			const price = parseFloat(product.price).toFixed(2);
+			const sum = (prev += price * quantity);
+			return sum;
+		};
+
+		const productPrice = orders.reduce(reducer, 0);
+
+		const deliveryFee = productPrice > 500 ? 0 : DELIVERY_COST;
+
+		//const deliveryFee = productPrice > 500 || productPrice === 0 ? 0 : DELIVERY_COST;
+
+		const action = {
 			type: actionTypes.CALCULATE_TOTAL_CART_AMOUNT,
-			productPrice: totalPrice,
-			deliveryFee: deliveryFee,
-			totalPrice: totalPrice + deliveryFee
-		});
+			payload: {
+				totalPrice: productPrice + deliveryFee,
+				deliveryFee: deliveryFee,
+				productPrice: productPrice
+			}
+		};
+
+		dispatch(action);
 	};
 };
-
 
 export const incrementProduct = (payload) => {
 	return (dispatch) => {
